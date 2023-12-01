@@ -15,6 +15,11 @@ Space: O(n)
 """
 
 class Solution(object):
+    """
+    removeDuplicates modifies an array of sorted integers in-place to keep only unique elements. It iterates through the array, checking each element against the previous one.
+    If the current element is different from the previous one, it updates the array in-place to store that unique element and keeps track of the count of unique elements.
+    Finally, it returns the count of unique elements in the modified array.
+    """
     def removeDuplicates(self, nums):
         l = 1
         for r in range(1, len(nums)):
