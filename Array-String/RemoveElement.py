@@ -15,6 +15,11 @@ Space: O(1)
 """
 
 class Solution(object):
+    """
+     removeElement modifies an array of integers in-place to remove all occurrences of a specific value. 
+     It iterates through the array, replacing occurrences of the specified value with the following non-matching elements. 
+     It also keeps track of the count of non-matching elements and returns this count, representing the new length of the modified array without the specified value.
+     """
     def removeElement(self, nums, val):
         count = 0
         for i  in range(len(nums)):
