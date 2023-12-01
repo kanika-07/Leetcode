@@ -12,6 +12,11 @@ Time: O(∣list1∣+∣list2∣))
 Space: O(∣list1∣+∣list2∣))
 """
 class Solution(object):
+    """
+    mergeTwoLists merges two sorted linked lists into a single sorted linked list. It iterates through both input lists, 
+    comparing the values at each node and constructing a new merged list in ascending order. The resulting list contains all elements from both input lists,
+    merged in a sorted manner, and the method returns the head of this merged linked list.
+    """
     def mergeTwoLists(self, list1, list2):
         if list1 is None:
             return list2
