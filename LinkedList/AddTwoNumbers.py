@@ -12,6 +12,11 @@ Space: O(1)
 """
 
 class Solution(object):
+    """
+    addTwoNumbers takes in two linked lists representing numbers and adds them digit by digit, creating a new linked list to represent the sum. 
+    It iterates through both input lists simultaneously, calculating the sum of digits and managing the carry as needed. 
+    It constructs a new linked list to hold the resulting sum digits and returns this linked list representing the sum of the two input numbers.
+    """
     def addTwoNumbers(self, l1, l2):
         head = None
         temp = None
