@@ -8,6 +8,12 @@ Space:O(1)
 """
 
 class Solution(object):
+    """
+    lengthOfLongestSubstring finds the length of the longest substring in a string without any repeating characters. 
+    It iterates through the string and uses a sliding window approach to identify substrings without repeating characters. 
+    The method keeps track of visited characters using an array and determines the length of the longest substring without repeating characters, 
+    returning this length as the result.
+    """
     def lengthOfLongestSubstring(self, s):
         n = len(s)
         res = 0
