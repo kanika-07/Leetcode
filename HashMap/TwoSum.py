@@ -14,6 +14,11 @@ Space: O(n)
 """
 
 class Solution(object):
+    """
+    twoSum finds two numbers in an array whose sum matches a given target. It uses a dictionary to store previously seen numbers and their indices while iterating 
+    through the array. For each number, it checks if the difference between the target and the current number (remaining) is in the dictionary. 
+    If found, it returns the indices of the two numbers that add up to the target.
+    """
     def twoSum(self, nums, target):
         seen = {}
         for i, value in enumerate(nums):
