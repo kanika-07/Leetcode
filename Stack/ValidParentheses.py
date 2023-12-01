@@ -16,6 +16,12 @@ Space: O(n)
 """
 
 class Solution(object):
+    """
+    isValid that checks whether a given string containing various types of brackets (parentheses, curly braces, and square brackets) has a valid bracket structure. 
+    It iterates through the string and uses a stack (implemented with a list) to keep track of the opening brackets encountered. 
+    It matches each closing bracket with the corresponding opening bracket popped from the stack. If the brackets match properly and the stack is empty at the end, 
+    it returns True; otherwise, it returns False.
+    """
     def isValid(self, s):
         leftSymbol = []
         for c in s:
