@@ -28,6 +28,12 @@ Time: O(n)
 Space: O(1)
 """
 class Solution(object):
+    """
+    romanToInt converts a Roman numeral string to an integer. It uses a dictionary to map Roman numeral symbols to their respective integer values. 
+    It iterates through the input string, checking for two-character combinations that match Roman numeral patterns and adds their corresponding integer values 
+    to a running total. If no matching pattern is found, it adds the value of the single character. 
+    Finally, it returns the total integer value calculated from the Roman numeral string.
+    """
     def romanToInt(self, s):
         roman = {'I':1,'IV':4, 'V':5, 'IX':9, 'X':10, 'XL':40, 'L':50, 'XC':90,'C':100, 'CD':400, 'D':500, 'CM':900, 'M':1000}
         i = 0
