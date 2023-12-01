@@ -16,6 +16,11 @@ Space: O(∣s∣)
 """
 
 class Solution(object):
+    """
+    convert arranges a string in a zigzag pattern based on the number of rows specified. 
+    It iterates through the string, placing characters in positions corresponding to the zigzag pattern. 
+    It then reads the characters line by line from this pattern and returns the resulting string.
+    """
     def convert(self, s, numRows):
         if s is None and numRows <= 0:
             return ""
