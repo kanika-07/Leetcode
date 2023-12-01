@@ -10,6 +10,11 @@ Time: O(∣strs[0]∣⋅∣strs∣)
 Space: O(∣strs[0]∣)
 """
 class Solution(object):
+    """
+    longestCommonPrefix finds the longest common starting sequence among a list of strings. It iterates through each character position of the shortest string in the list, 
+    checking if all other strings have the same character at that position. If they do, it adds that character to the common prefix string; 
+    if not, it stops and returns the current prefix found.
+    """
     def longestCommonPrefix(self, strs):
         s = ""
         if strs is None or (len(strs) == 0):
