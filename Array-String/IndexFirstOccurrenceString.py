@@ -10,6 +10,11 @@ Space: O(1)
 """
 
 class Solution(object):
+    """
+    strStr finds the starting index of the first occurrence of a smaller string (needle) within a larger string (haystack). 
+    It uses a simple iteration to check if needle matches a substring of the same length in haystack. If found, it returns the index where the match begins; 
+    otherwise, it returns -1.
+    """
     def strStr(self, haystack, needle):
         if haystack is None or needle is None:
             return -1
