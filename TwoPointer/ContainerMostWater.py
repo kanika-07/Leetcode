@@ -14,6 +14,12 @@ Space: O(1)
 """
 
 class Solution(object):
+    """
+    maxArea calculates the maximum area of water that can be held between vertical lines represented by an array. 
+    It uses a two-pointer approach, starting from the outermost lines and gradually moving inward. 
+    At each step, it calculates the area formed by the two lines and keeps track of the maximum area found so far. 
+    The method continues this process until the two pointers converge, returning the maximum area of water that can be contained between the lines.
+    """
     def maxArea(self, height):
         max_area = 0
         left = 0
