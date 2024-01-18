@@ -10,24 +10,24 @@ Return the minimum number of candies you need to have to distribute the candies 
 Time: O(n)
 Space: O(n)
 """
-class Solution(object):
-    def candy(self, ratings):
-        """
-        :type ratings: List[int]
-        :rtype: int
-        """
+class Solution:
+    def candy(self, ratings: List[int]) -> int:
         n = len(ratings)
         ans = 0
-        l = [1] * n
-        r = [1] * n
-        for i in range(1,n):
+        left = [1] * n
+        right = [1] * n
+
+        for i in range(1, n):
             if ratings[i] > ratings[i-1]:
-                l[i] = l[i-1] + 1
+                left[i] = left[i-1] + 1
+        
         for i in range(n-2, -1, -1):
             if ratings[i] > ratings[i+1]:
-                r[i] = r[i+1] + 1
-        for a, b in zip(l,r):
+                right[i] = right[i+1] + 1
+        
+        for a, b in zip(left, right):
             ans += max(a,b)
+
         return ans
 """
 Sample
