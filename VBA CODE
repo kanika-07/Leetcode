@@ -1,0 +1,100 @@
+Sub CreateTrainingSchedule()
+    On Error GoTo ErrorHandler
+
+    Dim wsData As Worksheet, wsSchedule As Worksheet
+    Dim currentDateMM_AM As Date, currentDateFIN As Date
+    Dim dailyHoursMM_AM As Double, dailyHoursFIN As Double
+    Dim serialNumber As Long, j As Long
+    Dim maxHoursPerDay As Double
+
+    ' Define start date for courses
+    Dim startDate As Date: startDate = DateSerial(2025, 2, 19)
+    currentDateMM_AM = startDate
+    currentDateFIN = startDate
+
+    dailyHoursMM_AM = 0
+    dailyHoursFIN = 0
+    serialNumber = 1
+    j = 2
+    maxHoursPerDay = 6
+
+    ' Setting up worksheets
+    Set wsData = ThisWorkbook.Sheets("Data")
+    Set wsSchedule = ThisWorkbook.Sheets("Training Schedule")
+
+    ' Scheduling MM, AM, and FIN courses
+    Call ScheduleCourses("MM", currentDateMM_AM, dailyHoursMM_AM, serialNumber, j, wsData, wsSchedule, maxHoursPerDay, startDate)
+    Call ScheduleCourses("AM", currentDateMM_AM, dailyHoursMM_AM, serialNumber, j, wsData, wsSchedule, maxHoursPerDay, startDate)
+    Call ScheduleCourses("FIN", currentDateFIN, dailyHoursFIN, serialNumber, j, wsData, wsSchedule, maxHoursPerDay, startDate)
+
+    Exit Sub
+
+ErrorHandler:
+    MsgBox "Error " & Err.Number & ": " & Err.Description, vbCritical
+    Exit Sub
+End Sub
+
+Sub ScheduleCourses(workstreamType As String, ByRef currentDate As Date, ByRef dailyHours As Double, _
+                    ByRef serialNumber As Long, ByRef j As Long, ByRef wsData As Worksheet, _
+                    ByRef wsSchedule As Worksheet, maxHoursPerDay As Double, startDate As Date)
+    Dim i As Long
+    Dim courseDuration As Double, courseName As String, sequencing As String, modality As String
+    Dim BUs As Integer, trainers As Integer
+
+    For i = 2 To wsData.Cells(wsData.Rows.Count, "A").End(xlUp).Row
+        If wsData.Cells(i, "B").Value = workstreamType Then
+            sequencing = wsData.Cells(i, "E").Value
+            modality = wsData.Cells(i, "F").Value
+
+            If modality = "ILT" Or modality = "vILT" Then
+                courseName = wsData.Cells(i, "D").Value
+                courseDuration = wsData.Cells(i, "G").Value
+                BUs = IIf(modality = "ILT", 4, 1)
+                trainers = BUs
+
+                ' Schedule pre go-live courses before the start date
+                If sequencing = "Pre go-live" And currentDate < startDate Then
+                    currentDate = startDate
+                ElseIf sequencing = "Post go-live" And currentDate < startDate Then
+                    currentDate = startDate
+                End If
+
+                ' Find the next available training day
+                While dailyHours + courseDuration > maxHoursPerDay Or Not IsTrainingDay(currentDate)
+                    currentDate = FindNextAvailableDate(currentDate + 1)
+                    dailyHours = 0
+                Wend
+
+                ' Add the course to the Training Schedule
+                With wsSchedule
+                    .Cells(j, 1).Value = serialNumber
+                    .Cells(j, 2).Value = workstreamType
+                    .Cells(j, 3).Value = wsData.Cells(i, "C").Value ' SCRUM
+                    .Cells(j, 4).Value = courseName
+                    .Cells(j, 5).Value = modality
+                    .Cells(j, 6).Value = Format(currentDate, "mm/dd/yyyy")
+                    .Cells(j, 7).Value = courseDuration
+                    .Cells(j, 8).Value = BUs
+                    .Cells(j, 9).Value = trainers
+                End With
+
+                serialNumber = serialNumber + 1
+                j = j + 1
+                dailyHours = dailyHours + courseDuration
+            End If
+        End If
+    Next i
+End Sub
+
+Function FindNextAvailableDate(ByVal dateToCheck As Date) As Date
+    Do Until IsTrainingDay(dateToCheck)
+        dateToCheck = dateToCheck + 1
+    Loop
+    FindNextAvailableDate = dateToCheck
+End Function
+
+Function IsTrainingDay(ByVal dateToCheck As Date) As Boolean
+    IsTrainingDay = Weekday(dateToCheck) >= 3 And Weekday(dateToCheck) <= 5
+End Function
+
+
